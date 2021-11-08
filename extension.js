@@ -1,4 +1,4 @@
-const St = imports.gi.St;
+const { Clutter, St } = imports.gi;
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 
@@ -66,8 +66,13 @@ function _getNepaliDate() {
 			month = months[date_diff[i] - 1];
 		}
 	}
-	nepDate = "|          " + month + " " + date_diff[2] + ", " + date_diff[0];
-	text = new St.Label({ style_class: 'nepcal-label', text: nepDate + " B.S." });
+	nepDate = month + " " + date_diff[2] + ", " + date_diff[0];
+	text = new St.Label({
+		style_class: 'nepcal-label',
+		y_expand: true,
+        y_align: Clutter.ActorAlign.CENTER,
+		text: nepDate + " B.S."
+	});
 	button.set_child(text);
 	Mainloop.timeout_add_seconds(1, _getNepaliDate);
 }
